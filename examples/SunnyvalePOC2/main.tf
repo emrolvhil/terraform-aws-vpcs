@@ -101,3 +101,18 @@ module "vpc" {
   }
 }
 
+resource "aws_dx_gateway" "example" {
+  name = "test"
+  amazon_side_asn = "64513"
+}
+
+resource "aws_dx_private_virtual_interface" "foo" {
+  connection_id = "dxcon-zzzzzzzz"
+
+  name           = "vif-prv"
+  vlan           = 4094
+  address_family = "ipv4"
+  bgp_asn        = 65352
+  depends_on = [aws_dx_gateway.example]
+  dx_gateway_id  = aws_dx_gateway.example.id
+}

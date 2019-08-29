@@ -1553,7 +1553,6 @@ resource "aws_vpn_gateway_attachment" "this" {
 
 resource "aws_vpn_gateway_route_propagation" "public" {
   count = var.create_vpc && var.propagate_public_route_tables_vgw && (var.enable_vpn_gateway || var.vpn_gateway_id != "") ? 1 : 0
-
   route_table_id = element(aws_route_table.public.*.id, count.index)
   vpn_gateway_id = element(
     concat(
